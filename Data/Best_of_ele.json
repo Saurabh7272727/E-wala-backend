@@ -1,0 +1,43 @@
+[
+    {
+        "img": "https://www.pngmart.com/files/2/Canon-Digital-Camera-PNG-Photos.png",
+        "title": "Top Mirrorless Cameras",
+        "price": "Shop Now!",
+        "type": "Cameras"
+    },
+    {
+        "img": "https://th.bing.com/th/id/R.f12f34b272b44afd9754679cdce9b78a?rik=KBoFBDPrueYuHw&riu=http%3a%2f%2fpngimg.com%2fuploads%2fiphone_12%2fiphone_12_PNG10.png&ehk=1hr3Ia4kCPrG%2bO52a2mbrIMxdu%2fH9qjVeUfqXS4zazw%3d&risl=&pid=ImgRaw&r=0",
+        "title": "Mobile",
+        "price": "20,000",
+        "type": "Mobile devices"
+    },
+    {
+        "img": "https://images.philips.com/is/image/PhilipsConsumer/327E8QJAB_71-IMS-en_PH?$jpglarge$&wid=1250",
+        "title": "Monitors",
+        "price": 6599,
+        "type": "moniter"
+    },
+    {
+        "img": "https://www.pngarts.com/files/3/Laser-Printer-PNG-Image-with-Transparent-Background.png",
+        "title": "Printers",
+        "price": 3999,
+        "type": "printer"
+    },
+    {
+        "img": "https://c1.neweggimages.com/ProductImageCompressAll1280/24-012-013-03.jpg",
+        "title": "Monitors",
+        "price": 7949,
+        "type": "moniter"
+    },
+    {
+        "img": "https://static-assets-web.flixcart.com/www/linchpin/batman-returns/images/fk-default-image-75ff340b.png?q=90",
+        "title": "Monitor",
+        "price": 8279,
+        "type": "big_moniters"
+    },
+    {
+        "img": "https://rukminim1.flixcart.com/fk-p-flap/530/810/image/ff304222090dfec7.jpg?q=20",
+        "title": "",
+        "type": "extraFeatures"
+    }
+]

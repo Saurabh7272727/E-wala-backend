@@ -127,5 +127,87 @@ const LengthHandler = async (req, res) => {
     }
 }
 
-module.exports = { AddToCartHandler, CartHandler, DeleteCardItemsHandler, EditCardItemsHandler, DuplicateHandlersHandler, LengthHandler };
+//  orders schema for clients;
+const IP = require('ip');
+const OrdersSchema = new mongoose.Schema({
+    name: {
+        type: "string",
+    },
+    password: { type: "number" },
+    email: { type: "string" },
+    qunatity: { type: "number" },
+    netprice: { type: "string" },
+    account_id: { type: "string" },
+    product_id: { type: "string" },
+    discount_amount: { type: "number" },
+    total_amount: { type: "number" },
+    ip: { type: "string" },
+    mal: { type: "object" }
+});
+
+
+const OrderSubmit = mongoose.model("Orders", OrdersSchema);
+
+
+
+const OrderCompletedHandler = async (req, res) => {
+    const ip = IP.address();
+    const { name, password, email, qunatity, netprice, account_id, product_id, discount_amount, total_amount } = req.body;
+    const fetchProducts = await secondMongo.findOne({ _id: product_id }).then((data) => {
+        return data;
+    })
+    const findDataproduct = async () => {
+        await ThridMongoose.deleteOne({ account_id: account_id, products_id: product_id }).then((data) => {
+            return data;
+        })
+    }
+    findDataproduct();
+    await OrderSubmit.findOne({ account_id: account_id, product_id: product_id }).then((data) => {
+        if (data?.account_id == account_id && data?.product_id == product_id) {
+            res.status(202).json({ Message: "your order has been already completed" })
+        } else {
+            const orderMain = async () => {
+                await OrderSubmit.insertMany({
+                    name: name,
+                    password: password,
+                    email: email,
+                    qunatity: qunatity,
+                    netprice: netprice,
+                    account_id: account_id,
+                    discount_amount: discount_amount,
+                    product_id: product_id,
+                    mal: { ...fetchProducts },
+                    total_amount: total_amount,
+                    ip: ip
+                }).then(() => {
+                    res.send("Your order has been successfully completed");
+                })
+            }
+            orderMain();
+        }
+    });
+
+}
+
+
+const OrderListHandler = async (req, res) => {
+    const ip = req.params.ip;
+    const data = await OrderSubmit.find({ ip: ip }).then((data) => {
+        return data;
+    }).catch((err) => {
+        return err.message;
+    });
+    res.json(data);
+}
+
+const DeleteOrderHandler = async (req, res) => {
+    const id = req.body.id;
+    const data = await OrderSubmit.deleteOne({ _id: id }).then((data) => {
+        return data;
+    }).catch((err) => {
+        return err.message;
+    })
+    res.send("<h2>Delete Order</h2>" || data);
+}
+module.exports = { AddToCartHandler, CartHandler, DeleteCardItemsHandler, EditCardItemsHandler, DuplicateHandlersHandler, LengthHandler, OrderCompletedHandler, OrderListHandler, DeleteOrderHandler };
 

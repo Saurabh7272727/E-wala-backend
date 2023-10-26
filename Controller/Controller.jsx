@@ -27,7 +27,6 @@ const SigupHandler = async (req, res) => {
 
 const LoginHandler = async (req, res) => {
     const ipAddress = IP.address();
-    console.log(typeof ipAddress);
     const number = Number(req.params.number);
     const password = Number(req.params.password);
     await mongooseUpdate.findOne({ number: number, password: password }).then((data) => {
@@ -59,7 +58,6 @@ const DelectHandler = async (req, res) => {
 
 const HeadersHandler = async (req, res) => {
     const ipAddress = IP.address();
-    console.log(ipAddress);
     await mongooseUpdate.findOne({ ip: ipAddress }).then((data) => {
         res.json(data);
     }).catch((err) => {
@@ -84,7 +82,6 @@ const electronics = require('../Data/Best_of_ele.json');
 const beautyproducts = require('../Data/Beauty_of_section.json');
 const ProductsHandler = async (req, res) => {
     const pro = req.params.products;
-    console.log(pro);
     if (pro == "electronics") {
         res.json(electronics);
     } else if (pro == 'beautyproducts') {

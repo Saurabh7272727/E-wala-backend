@@ -112,5 +112,16 @@ const DetailsPageHandler = async (req, res) => {
         res.send(err.message || err);
     })
 }
+// db.recipes.find({ $text: { $search: "chocolate" } })
+const searchProducts = async (req, res) => {
+    const query = req.params.query;
+    // console.log(typeof query);
+    await secondMongo.find({ "type": { $regex: ".*" + query + ".*", $options: 'i' } }).then((data) => {
+        res.status(201).json(data);
+    }).catch((error) => {
+        res.status(404).json({ message: `${query} are not found`, next: "Searched again" });
+        console.log(error);
+    })
+}
 
-module.exports = { SigupHandler, LoginHandler, DelectHandler, HeadersHandler, LogoutHandler, HomeHandler, ProductsHandler, ProductsPageHandler, DetailsPageHandler };
+module.exports = { searchProducts, SigupHandler, LoginHandler, DelectHandler, HeadersHandler, LogoutHandler, HomeHandler, ProductsHandler, ProductsPageHandler, DetailsPageHandler };

@@ -1,4 +1,5 @@
 const mongooseUpdate = require('../MongoDb/FirstMongo.jsx');
+require('dotenv').config();
 const IP = require('ip');
 const SigupHandler = async (req, res) => {
     const number = Number(req.body.number);
@@ -124,4 +125,26 @@ const searchProducts = async (req, res) => {
     })
 }
 
-module.exports = { searchProducts, SigupHandler, LoginHandler, DelectHandler, HeadersHandler, LogoutHandler, HomeHandler, ProductsHandler, ProductsPageHandler, DetailsPageHandler };
+
+
+// genrative ai use google.ai;
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+const googleAi = async (req, res) => {
+    console.log(req.params.questions);
+    const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    try {
+        const result = await model.generateContent(req.params.questions);
+        const response = await result.response;
+        const text = response.text();
+        res.send({
+            data: text,
+        })
+    } catch (error) {
+        res.send({
+            data: "Google server are so busy try to next time : 300s ago",
+        })
+    }
+}
+
+module.exports = { googleAi, searchProducts, SigupHandler, LoginHandler, DelectHandler, HeadersHandler, LogoutHandler, HomeHandler, ProductsHandler, ProductsPageHandler, DetailsPageHandler };

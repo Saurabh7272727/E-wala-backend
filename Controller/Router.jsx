@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { searchProducts, SigupHandler, LoginHandler, DelectHandler, HeadersHandler, LogoutHandler, HomeHandler, ProductsHandler, ProductsPageHandler, DetailsPageHandler } = require('./Controller.jsx');
+const { googleAi, searchProducts, SigupHandler, LoginHandler, DelectHandler, HeadersHandler, LogoutHandler, HomeHandler, ProductsHandler, ProductsPageHandler, DetailsPageHandler } = require('./Controller.jsx');
 const { AddToCartHandler, CartHandler, DeleteCardItemsHandler, EditCardItemsHandler, DuplicateHandlersHandler, LengthHandler, OrderCompletedHandler, OrderListHandler, DeleteOrderHandler } = require('../Controller/Production_level/AddToCart.jsx');
 const { GroceryMobileHandler } = require('../Controller/Grocery/Grocery.jsx');
 
@@ -25,4 +25,5 @@ router.post('/ordersCompleted', OrderCompletedHandler);
 router.get('/orderList/:ip', OrderListHandler);
 router.post('/deleteOrder', DeleteOrderHandler);
 router.get('/search/:query', searchProducts);
+router.get('/googleAi/:questions', googleAi);
 module.exports = router;
